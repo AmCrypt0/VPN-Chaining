@@ -150,6 +150,8 @@ wget https://git.io/wireguard -O wireguard-install.sh && bash wireguard-install.
 ![image](https://user-images.githubusercontent.com/105618808/168540590-e64d845c-00e2-4d03-8810-35fd57235686.png)
 
 تبریک میگم تا اینجا هر دو سرور رو راه اندازی کردید حالا میمونه متصل کردن این دو بهم.
+حالا openvpn رو روی سرور ایران نصب میکنیم که برای اتصال دو سرور بهش نیاز داریم.
+apt install openvpn 
 
 دستور زیر رو وارد کنید تا یه پنجره دیگه باز کنیم.
 screen -s vpn
