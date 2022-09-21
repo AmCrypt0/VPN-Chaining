@@ -79,14 +79,12 @@ https://winscp.net/eng/download.php
 حالا سرور رو با استفاده از دستورات زیر آپدیت میکنیم.توجه کنید که اگر در حین آپدیت پیغامی داد فقط Enter بزنید مهم نیست.
 
 ```bash
-sudo apt update
-sudo apt upgrade
+sudo apt update && sudo apt upgrade
 ```
 اگر ارور داد بدون `sudo` بزنید.
 
 ```bash
-apt update
-apt upgrade
+apt update && apt upgrade
 ```
 
 حالا که سرور آماده شد میریم برای نصب `openvpn` روی سرور که بعدش بتونیم با سرور ایران بهش وصل بشیم.
