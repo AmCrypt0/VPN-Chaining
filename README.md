@@ -184,9 +184,11 @@ openvpn --config vpstovpn.ovpn --route-nopull
 
 اگر همه چیز درست انجام شده باشه موفق شدید دو سرور رو بهم وصل کنید. حالا باید این پنجره رو ترک کنیم بدون اینکه اتصال قطع بشه و به پنجره قبلی برگردیم.
 دکمه ctrl + a + d رو باهم بزنید.
-حالا دستورات زیر رو وارد کنید تا سرور ترافیک رو از داخل تونل openvpn به سرور خارج از کشور منتقل کنه.
+حالا دستورات زیر رو وارد کنید تا سرور ترافیک رو از داخل تونل `openvpn` به سرور خارج از کشور منتقل کنه.
 
 ```bash
+export OPENVPN_LOCAL_IP=$(ip -4 addr | grep -E '10.8.' | cut -f 6 -d ' ' | cut -f 1 -d '/')
+
 iptables -t nat -D POSTROUTING -s 10.7.0.0/24 ! -d 10.7.0.0/24 -j SNAT --to-source YOUR_IRAN_SERVER_IP
 
 iptables -A FORWARD -i tun0 -o wg0 -j ACCEPT
@@ -195,11 +197,11 @@ iptables -A FORWARD -i wg0 -o tun0 -j ACCEPT
 
 iptables -A FORWARD -d 10.7.0.0/24 -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-iptables -t nat -A POSTROUTING -s 10.7.0.0/24 -j SNAT --to-source 10.8.0.2
+iptables -t nat -A POSTROUTING -s 10.7.0.0/24 -j SNAT --to-source $OPENVPN_LOCAL_IP
 
-ip route add default via 10.8.0.2 table 120 
+ip route add default via $OPENVPN_LOCAL_IP table 120 
 
-ip rule add from 10.7.0.0/24 table 120 
+ip rule add from 10.7.0.0/24 table 120
 ```
 
 و تمام حالا آماده اید که به سرور ایران وصل بشید و از اینترنت بدون فیلتر استفاده کنید.برای ساخت فایل کانفیگ بیشتر میتونید مجدد دستور زیر رو اجرا کنید و یوزر های بیشتری بسازید.
